@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Perfil: Descubre tus Fortalezas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería para generar PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <script>
+        // Configuración de Tailwind para soportar modo oscuro por clase
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandRosa: '#fbcfe8',  /* Rosa pastel */
+                        brandFucsia: '#db2777', /* Fucsia principal */
+                        darkBg: '#121212',      /* Negro fondo */
+                        darkCard: '#1e1e1e'     /* Gris oscuro tarjeta */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+        .step-section { display: none; }
+        .step-section.active { display: block; }
+    </style>
+</head>
+<body class="min-h-screen bg-rose-50 text-slate-800 dark:bg-darkBg dark:text-gray-200 flex flex-col items-center justify-center p-4 sm:p-6 transition-colors duration-300">
+
+    <!-- Botón para alternar Modo Claro / Oscuro -->
+    <button id="theme-toggle" class="absolute top-4 right-4 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-white dark:bg-darkCard text-slate-700 dark:text-gray-300 shadow-md border border-rose-200 dark:border-neutral-800 transition">
+        Modo Oscuro
+    </button>
+
+    <div class="bg-white dark:bg-darkCard rounded-2xl shadow-xl max-w-2xl w-full border border-rose-100 dark:border-neutral-800 overflow-hidden">
+        
+        <!-- Encabezado -->
+        <div class="bg-gradient-to-r from-pink-400 to-brandFucsia dark:from-neutral-900 dark:to-neutral-950 p-6 text-white text-center border-b dark:border-brandFucsia">
+            <h1 class="text-2xl font-bold tracking-tight uppercase">Test de Perfil</h1>
+            <p class="text-rose-100 dark:text-brandFucsia text-sm mt-1 font-medium" id="step-indicator">Paso 1 de 5</p>
+        </div>
+
+        <form id="quiz-form" class="p-6 sm:p-8 space-y-6">
+            
+            <!-- SECCIÓN 1: Datos iniciales -->
+            <div id="step-1" class="step-section active animate-fadeIn space-y-4">
+                <div class="border-b border-rose-100 dark:border-neutral-800 pb-3">
+                    <h2 class="text-lg font-semibold text-rose-700 dark:text-brandFucsia">Paso 1: Registro Inicial</h2>
+                    <p class="text-xs text-slate-500 dark:text-gray-400">Introduce tus datos básicos para habilitar tu perfil en la plataforma.</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Nombre Completo</label>
+                    <input required type="text" id="nombre" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. Juan Pérez">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Número de Teléfono / WhatsApp</label>
+                    <input required type="tel" id="telefono" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. +58 412...">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Zona o Sector donde resides</label>
+                    <input type="text" id="zona" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. El Tigre, Centro">
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: Escenarios -->
+            <div id="step-2" class="step-section animate-fadeIn space-y-6">
+                <div class="border-b border-rose-100 dark:border-neutral-800 pb-3">
+                    <h2 class="text-lg font-semibold text-rose-700 dark:text-brandFucsia">Paso 2: Dinámica de Situaciones</h2>
+                    <p class="text-xs text-slate-500 dark:text-gray-400">Selecciona la alternativa que mejor represente tu reacción habitual.</p>
+                </div>
+
+                <!-- Escenario A -->
+                <div class="space-y-2">
+                    <p class="text-sm font-medium text-slate-700 dark:text-gray-300">1. Un grupo de amigos o familia quiere hacer una reunión, pero nadie se pone de acuerdo. ¿Qué haces?</p>
+                    <div class="space-y-2">
+                        <label class="flex items-start p-3 border border-rose-100 dark:border-neutral-800 rounded-lg bg-rose-50/30 dark:bg-neutral-900 hover:bg-rose-50 dark:hover:bg-neutral-800 cursor-pointer text-sm">
+                            <input type="radio" name="escenarioA" value="Asume la planificación, el control de presupuestos y la organización del grupo de trabajo." class="mt-1 text-brandFucsia focus:ring-brandFucsia mr-3">
+                            <span>Me encargo de armar el plan: busco opciones, saco cuentas y organizo al grupo.</span>
+                        </label>
+                        <label class="flex items-start p-3 border border-rose-100 dark:border-neutral-800 rounded-lg bg-rose-50/30 dark:bg-neutral-900 hover:bg-rose-50 dark:hover:bg-neutral-800 cursor-pointer text-sm">
+                            <input type="radio" name="escenarioA" value="Soporte activo, ejecución y asistencia directa en tareas operativas de equipo." class="mt-1 text-brandFucsia focus:ring-brandFucsia mr-3">
+                            <span>Espero a que decidan y me encargo de que ese día todo salga bien (ayudo a cocinar, acomodar, etc.).</span>
+                        </label>
+                        <label class="flex items-start p-3 border border-rose-100 dark:border-neutral-800 rounded-lg bg-rose-50/30 dark:bg-neutral-900 hover:bg-rose-50 dark:hover:bg-neutral-800 cursor-pointer text-sm">
+                            <input type="radio" name="escenarioA" value="Generación de ideas disruptivas, pensamiento creativo enfocado en propuestas alternativas." class="mt-1 text-brandFucsia focus:ring-brandFucsia mr-3">
+                            <span>Propongo ideas creativas o lugares diferentes que los demás no habían pensado.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Escenario B -->
+                <div class="space-y-2">
+                    <p class="text-sm font-medium text-slate-700 dark:text-gray-300">2. A un conocido se le bloquea el teléfono o se le daña la computadora en medio de algo importante. ¿Qué haces?</p>
+                    <div class="space-y-2">
+                        <label class="flex items-start p-3 border border-rose-100 dark:border-neutral-800 rounded-lg bg-rose-50/30 dark:bg-neutral-900 hover:bg-rose-50 dark:hover:bg-neutral-800 cursor-pointer text-sm">
+                            <input type="radio" name="escenarioB" value="Resolución de incidencias técnicas mediante análisis autónomo e investigación guiada." class="mt-1 text-brandFucsia focus:ring-brandFucsia mr-3">
+                            <span>Me siento con paciencia a revisar la configuración, busco un tutorial y trato de solucionarlo.</span>
+                        </label>
+                        <label class="flex items-start p-3 border border-rose-100 dark:border-neutral-800 rounded-lg bg-rose-50/30 dark:bg-neutral-900 hover:bg-rose-50 dark:hover:bg-neutral-800 cursor-pointer text-sm">
+                            <input type="radio" name="escenarioB" value="Gestión de crisis, contención emocional y canalización inteligente de incidencias hacia especialistas." class="mt-1 text-brandFucsia focus:ring-brandFucsia mr-3">
+                            <span>Le calmo los nervios, le digo que todo tiene solución y le ayudo a buscar a alguien que sepa.</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: Entorno Ideal -->
+            <div id="step-3" class="step-section animate-fadeIn space-y-4">
+                <div class="border-b border-rose-100 dark:border-neutral-800 pb-3">
+                    <h2 class="text-lg font-semibold text-rose-700 dark:text-brandFucsia">Paso 3: Entorno de Rendimiento</h2>
+                    <p class="text-xs text-slate-500 dark:text-gray-400">Determina el área espacial donde consideras que fluyes con mayor eficiencia.</p>
+                </div>
+                <div class="space-y-3">
+                    <label class="block p-4 border border-rose-200 dark:border-neutral-800 rounded-xl hover:border-brandFucsia dark:hover:border-brandFucsia bg-rose-50/10 dark:bg-neutral-900 cursor-pointer transition">
+                        <div class="flex items-start">
+                            <input type="radio" name="zonaConfort" value="Administración, gestión documental, auditoría interna o control de archivos digitales y físicos en entornos de baja interrupción." class="mt-1 text-brandFucsia focus:ring-brandFucsia mr-3">
+                            <div>
+                                <span class="block font-semibold text-sm text-slate-700 dark:text-gray-200">Área de Concentración</span>
+                                <span class="block text-xs text-slate-500 dark:text-gray-400 mt-0.5">Un espacio ordenado, enfocado en flujos internos (pantallas, documentos, inventarios) con baja tasa de interrupción.</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="block p-4 border border-rose-200 dark:border-neutral-800 rounded-xl hover:border-brandFucsia dark:hover:border-brandFucsia bg-rose-50/10 dark:bg-neutral-900 cursor-pointer transition">
+                        <div class="flex items-start">
+                            <input type="radio" name="zonaConfort" value="Operaciones logísticas, mantenimiento técnico, gestión de almacén o control físico de insumos." class="mt-1 text-brandFucsia focus:ring-brandFucsia mr-3">
+                            <div>
+                                <span class="block font-semibold text-sm text-slate-700 dark:text-gray-200">Área Dinámica Manual</span>
+                                <span class="block text-xs text-slate-500 dark:text-gray-400 mt-0.5">Actividad física regular, organización espacial de objetos, ensamblajes manuales o supervisión directa de infraestructura.</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="block p-4 border border-rose-200 dark:border-neutral-800 rounded-xl hover:border-brandFucsia dark:hover:border-brandFucsia bg-rose-50/10 dark:bg-neutral-900 cursor-pointer transition">
+                        <div class="flex items-start">
+                            <input type="radio" name="zonaConfort" value="Atención al cliente, asesoría comercial, relaciones institucionales o recepción de usuarios." class="mt-1 text-brandFucsia focus:ring-brandFucsia mr-3">
+                            <div>
+                                <span class="block font-semibold text-sm text-slate-700 dark:text-gray-200">Área Interpersonal</span>
+                                <span class="block text-xs text-slate-500 dark:text-gray-400 mt-0.5">Comunicación directa con usuarios, detección de necesidades de clientes, soporte verbal y resolución interactiva de dudas.</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4: Herramientas -->
+            <div id="step-4" class="step-section animate-fadeIn space-y-4">
+                <div class="border-b border-rose-100 dark:border-neutral-800 pb-3">
+                    <h2 class="text-lg font-semibold text-rose-700 dark:text-brandFucsia">Paso 4: Recursos Cotidianos</h2>
+                    <p class="text-xs text-slate-500 dark:text-gray-400">Selecciona los canales en los que posees fluidez operativa en tu día a día.</p>
+                </div>
+                <div class="space-y-3">
+                    <label class="flex items-start p-3 border border-rose-100 dark:border-neutral-800 rounded-lg bg-rose-50/30 dark:bg-neutral-900 hover:bg-rose-50 dark:hover:bg-neutral-800 cursor-pointer text-sm">
+                        <input type="checkbox" name="herramientas" value="Gestión de canales de mensajería comercial (WhatsApp Business), transacciones en plataformas C2C (Marketplace) y posicionamiento orgánico básico." class="mt-1 text-brandFucsia focus:ring-brandFucsia rounded mr-3">
+                        <span>Canales Digitales de Difusión (Ventas virtuales, publicaciones interactivas, atención por mensajería).</span>
+                    </label>
+                    <label class="flex items-start p-3 border border-rose-100 dark:border-neutral-800 rounded-lg bg-rose-50/30 dark:bg-neutral-900 hover:bg-rose-50 dark:hover:bg-neutral-800 cursor-pointer text-sm">
+                        <input type="checkbox" name="herramientas" value="Procesamiento de texto, redacción de minutas de comunicación formal y carga de datos en estructuras de formularios en la nube." class="mt-1 text-brandFucsia focus:ring-brandFucsia rounded mr-3">
+                        <span>Procesamiento Documental (Carga de formularios web, redacción de correos institucionales, hojas de texto).</span>
+                    </label>
+                    <label class="flex items-start p-3 border border-rose-100 dark:border-neutral-800 rounded-lg bg-rose-50/30 dark:bg-neutral-900 hover:bg-rose-50 dark:hover:bg-neutral-800 cursor-pointer text-sm">
+                        <input type="checkbox" name="herramientas" value="Control de flujos económicos de caja chica, conciliación de pasarelas de pago electrónico y registro analítico básico de ingresos y egresos." class="mt-1 text-brandFucsia focus:ring-brandFucsia rounded mr-3">
+                        <span>Operaciones Financieras Digitales (Manejo de billeteras digitales, banca web, balances elementales en tablas).</span>
+                    </label>
+                    
+                    <div class="pt-2">
+                        <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Especifica algún otro oficio técnico, artístico o manual que domines autónomamente:</label>
+                        <input type="text" id="herramientaOtro" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. Gastronomía, ensamblaje de hardware, costura técnica...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5: Experiencia Informal -->
+            <div id="step-5" class="step-section animate-fadeIn space-y-4">
+                <div class="border-b border-rose-100 dark:border-neutral-800 pb-3">
+                    <h2 class="text-lg font-semibold text-rose-700 dark:text-brandFucsia">Paso 5: Trayectoria Descentralizada</h2>
+                    <p class="text-xs text-slate-500 dark:text-gray-400">Compártenos las dinámicas prácticas donde has tenido participación directa.</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Describe brevemente actividades de apoyo realizadas en comercios independientes, proyectos de terceros o labores familiares productivas:</label>
+                    <textarea id="experiencia" rows="3" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-sm text-slate-800 dark:text-gray-100" placeholder="Ej. Gestión operativa y control de stock en establecimiento comercial minorista de forma estacional..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Mencione qué nueva dinámica operativa o herramienta digital has explorado por iniciativa propia recientemente:</label>
+                    <textarea id="aprendizaje" rows="2" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-sm text-slate-800 dark:text-gray-100" placeholder="Ej. Investigación autónoma de software para edición de flujos multimedia..."></textarea>
+                </div>
+            </div>
+
+            <!-- Botones de Navegación -->
+            <div class="flex justify-between items-center pt-4 border-t border-rose-100 dark:border-neutral-800">
+                <button type="button" id="prev-btn" class="invisible px-5 py-2 text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-slate-700 dark:hover:text-gray-200 transition">
+                    Atrás
+                </button>
+                <button type="button" id="next-btn" class="px-6 py-2 bg-slate-800 dark:bg-neutral-700 text-white rounded-lg text-sm font-medium hover:bg-slate-700 dark:hover:bg-neutral-600 transition shadow-sm">
+                    Siguiente
+                </button>
+            </div>
+
+        </form>
+
+        <!-- Pantalla de Éxito y Generación de PDF -->
+        <div id="success-screen" class="hidden p-8 text-center border-t border-rose-100 dark:border-neutral-800 animate-fadeIn space-y-6">
+            <div>
+                <h2 class="text-2xl font-bold text-rose-700 dark:text-brandFucsia mb-2">Evaluación Finalizada con Éxito</h2>
+                <p class="text-slate-600 dark:text-gray-300 text-sm max-w-md mx-auto">Toda tu información de perfil se ha transmitido correctamente a nuestro almacén central para auditar tus competencias. Puedes descargar tu copia local en formato PDF a continuación.</p>
+            </div>
+            
+            <button type="button" id="download-pdf-btn" class="inline-flex items-center px-6 py-3 bg-brandFucsia text-white text-sm font-semibold tracking-wider uppercase rounded-xl hover:bg-pink-700 transition shadow-md">
+                Descargar Reporte en PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenedor Oculto e Invisible: Estructura exclusiva para compilar el PDF de manera limpia -->
+    <div class="hidden">
+        <div id="pdf-template" style="padding: 40px; font-family: sans-serif; color: #1e293b; background-color: #ffffff; line-height: 1.6;">
+            <div style="border-bottom: 3px solid #db2777; padding-bottom: 15px; margin-bottom: 30px; text-center: center;">
+                <h1 style="font-size: 26px; color: #db2777; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Informe Técnico de Competencias</h1>
+                <p style="font-size: 13px; color: #64748b; margin: 5px 0 0 0;">Análisis Automatizado de Habilidades y Aptitudes Laborales</p>
+            </div>
+            
+            <div style="background-color: #fff1f2; border: 1px solid #fbcfe8; padding: 15px; border-radius: 8px; margin-bottom: 30px;">
+                <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #9d174d; text-transform: uppercase;">Datos Generales del Evaluado</h3>
+                <table style="width: 100%; font-size: 14px; border-collapse: collapse;">
+                    <tr>
+                        <td style="width: 30%; font-weight: bold; padding: 4px 0;">Nombre Completo:</td>
+                        <td id="pdf-nombre" style="color: #0f172a;"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px 0;">Contacto:</td>
+                        <td id="pdf-telefono" style="color: #0f172a;"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px 0;">Ubicación:</td>
+                        <td id="pdf-zona" style="color: #0f172a;"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-size: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; color: #0f172a; text-transform: uppercase;">1. Patrón de Resolución de Conflictos</h3>
+                <p style="font-size: 14px; margin: 8px 0 4px 0; font-weight: bold; color: #475569;">Dinámica Organizativa y Planificación:</p>
+                <p id="pdf-escenarioA" style="font-size: 14px; margin: 0; padding-left: 10px; color: #334155; border-left: 2px solid #db2777;"></p>
+                
+                <p style="font-size: 14px; margin: 15px 0 4px 0; font-weight: bold; color: #475569;">Soporte Técnico y Análisis Crítico:</p>
+                <p id="pdf-escenarioB" style="font-size: 14px; margin: 0; padding-left: 10px; color: #334155; border-left: 2px solid #db2777;"></p>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-size: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; color: #0f172a; text-transform: uppercase;">2. Desempeño Espacial Preferente</h3>
+                <p id="pdf-zonaConfort" style="font-size: 14px; margin: 8px 0 0 0; padding-left: 10px; color: #334155; border-left: 2px solid #db2777;"></p>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-size: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; color: #0f172a; text-transform: uppercase;">3. Inventario Técnico Operativo</h3>
+                <ul id="pdf-herramientas" style="font-size: 14px; margin: 8px 0; padding-left: 20px; color: #334155;"></ul>
+                <p style="font-size: 14px; margin: 10px 0 4px 0; font-weight: bold; color: #475569;">Especialidades Adicionales u Oficios Autónomos:</p>
+                <p id="pdf-herramientaOtro" style="font-size: 14px; margin: 0; color: #334155; font-style: italic;"></p>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-size: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; color: #0f172a; text-transform: uppercase;">4. Historial Práctico y Evolución Autónoma</h3>
+                <p style="font-size: 14px; margin: 8px 0 4px 0; font-weight: bold; color: #475569;">Experiencia Ejecutiva Descentralizada:</p>
+                <p id="pdf-experiencia" style="font-size: 14px; margin: 0; color: #334155; text-align: justify;"></p>
+                
+                <p style="font-size: 14px; margin: 15px 0 4px 0; font-weight: bold; color: #475569;">Capacidad de Autoaprendizaje Reciente:</p>
+                <p id="pdf-aprendizaje" style="font-size: 14px; margin: 0; color: #334155; text-align: justify;"></p>
+            </div>
+
+            <div style="margin-top: 50px; text-align: center; border-t: 1px solid #f1f5f9; padding-top: 15px; font-size: 11px; color: #94a3b8;">
+                Documento generado de forma digital. Válido para la estructuración curricular y evaluación técnico-profesional.
+            </div>
+        </div>
+    </div>
+
+    <!-- Lógica en JS Modular -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
