@@ -11,15 +11,15 @@
     
     <script>
         // Configuración de Tailwind para soportar modo oscuro por clase
-        tailwind.config = {
+        window.tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        brandRosa: '#fbcfe8',  /* Rosa pastel */
-                        brandFucsia: '#db2777', /* Fucsia principal */
-                        darkBg: '#121212',      /* Negro fondo */
-                        darkCard: '#1e1e1e'     /* Gris oscuro tarjeta */
+                        brandRosa: '#fbcfe8',  
+                        brandFucsia: '#db2777', 
+                        darkBg: '#121212',      
+                        darkCard: '#1e1e1e'     
                     }
                 }
             }
@@ -56,19 +56,47 @@
             <div id="step-1" class="step-section active animate-fadeIn space-y-4">
                 <div class="border-b border-rose-100 dark:border-neutral-800 pb-3">
                     <h2 class="text-lg font-semibold text-rose-700 dark:text-brandFucsia">Paso 1: Registro Inicial</h2>
-                    <p class="text-xs text-slate-500 dark:text-gray-400">Introduce tus datos básicos para habilitar tu perfil en la plataforma.</p>
+                    <p class="text-xs text-slate-500 dark:text-gray-400">Introduce tus datos fundamentales para la apertura de tu expediente de perfil.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Nombre Completo</label>
+                        <input required type="text" id="nombre" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. Juan Pérez">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Documento de Identidad / Cédula</label>
+                        <input required type="text" id="documento" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. V-12345678">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Número de Teléfono / WhatsApp</label>
+                        <input required type="tel" id="telefono" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. +58 412...">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Correo Electrónico</label>
+                        <input required type="email" id="correo" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. juan@correo.com">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Fecha de Nacimiento</label>
+                        <input required type="date" id="fechaNac" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-slate-800 dark:text-gray-100">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Zona o Sector donde resides</label>
+                        <input required type="text" id="zona" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. El Tigre, Centro">
+                    </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Nombre Completo</label>
-                    <input required type="text" id="nombre" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. Juan Pérez">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Número de Teléfono / WhatsApp</label>
-                    <input required type="tel" id="telefono" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. +58 412...">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Zona o Sector donde resides</label>
-                    <input type="text" id="zona" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. El Tigre, Centro">
+                    <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Último Nivel Educativo Completado</label>
+                    <select required id="educacion" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-slate-800 dark:text-gray-100">
+                        <option value="">Selecciona una opción...</option>
+                        <option value="Bachiller de la República">Bachillerato / Educación Media</option>
+                        <option value="Técnico Medio">Técnico Medio</option>
+                        <option value="Estudiante Universitario">Educación Universitaria en curso</option>
+                        <option value="Título Universitario / Técnico Superior">Educación Universitaria Completa</option>
+                    </select>
                 </div>
             </div>
 
@@ -93,7 +121,7 @@
                         </label>
                         <label class="flex items-start p-3 border border-rose-100 dark:border-neutral-800 rounded-lg bg-rose-50/30 dark:bg-neutral-900 hover:bg-rose-50 dark:hover:bg-neutral-800 cursor-pointer text-sm">
                             <input type="radio" name="escenarioA" value="Generación de ideas disruptivas, pensamiento creativo enfocado en propuestas alternativas." class="mt-1 text-brandFucsia focus:ring-brandFucsia mr-3">
-                            <span>Propongo ideas creativas o lugares diferentes que los demás no habían pensado.</span>
+                            <span>Propongo ideas creative o lugares diferentes que los demás no habían pensado.</span>
                         </label>
                     </div>
                 </div>
@@ -114,7 +142,7 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN 3: Entorno Ideal -->
+            <!-- SECCIÓN 3: Entorno de Rendimiento -->
             <div id="step-3" class="step-section animate-fadeIn space-y-4">
                 <div class="border-b border-rose-100 dark:border-neutral-800 pb-3">
                     <h2 class="text-lg font-semibold text-rose-700 dark:text-brandFucsia">Paso 3: Entorno de Rendimiento</h2>
@@ -173,7 +201,7 @@
                     
                     <div class="pt-2">
                         <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Especifica algún otro oficio técnico, artístico o manual que domines autónomamente:</label>
-                        <input type="text" id="herramientaOtro" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. Gastronomía, ensamblaje de hardware, costura técnica...">
+                        <input type="text" id="herramientaOtro" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-slate-800 dark:text-gray-100" placeholder="Ej. Gastronomía, ensamblaje de hardware, costura técnica...">
                     </div>
                 </div>
             </div>
@@ -186,11 +214,11 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Describe brevemente actividades de apoyo realizadas en comercios independientes, proyectos de terceros o labores familiares productivas:</label>
-                    <textarea id="experiencia" rows="3" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-sm text-slate-800 dark:text-gray-100" placeholder="Ej. Gestión operativa y control de stock en establecimiento comercial minorista de forma estacional..."></textarea>
+                    <textarea required id="experiencia" rows="3" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-sm text-slate-800 dark:text-gray-100" placeholder="Ej. Gestión operativa y control de stock en establecimiento comercial minorista de forma estacional..."></textarea>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-600 dark:text-gray-300 mb-1">Mencione qué nueva dinámica operativa o herramienta digital has explorado por iniciativa propia recientemente:</label>
-                    <textarea id="aprendizaje" rows="2" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia dark:focus:ring-brandFucsia text-sm text-slate-800 dark:text-gray-100" placeholder="Ej. Investigación autónoma de software para edición de flujos multimedia..."></textarea>
+                    <textarea required id="aprendizaje" rows="2" class="w-full px-4 py-2 border border-rose-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandFucsia text-sm text-slate-800 dark:text-gray-100" placeholder="Ej. Investigación autónoma de software para edición de flujos multimedia..."></textarea>
                 </div>
             </div>
 
@@ -219,10 +247,10 @@
         </div>
     </div>
 
-    <!-- Contenedor Oculto e Invisible: Estructura exclusiva para compilar el PDF de manera limpia -->
+    <!-- Contenedor Oculto: Estructura exclusiva para compilar el PDF de manera limpia -->
     <div class="hidden">
         <div id="pdf-template" style="padding: 40px; font-family: sans-serif; color: #1e293b; background-color: #ffffff; line-height: 1.6;">
-            <div style="border-bottom: 3px solid #db2777; padding-bottom: 15px; margin-bottom: 30px; text-center: center;">
+            <div style="border-bottom: 3px solid #db2777; padding-bottom: 15px; margin-bottom: 30px; text-align: center;">
                 <h1 style="font-size: 26px; color: #db2777; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Informe Técnico de Competencias</h1>
                 <p style="font-size: 13px; color: #64748b; margin: 5px 0 0 0;">Análisis Automatizado de Habilidades y Aptitudes Laborales</p>
             </div>
@@ -231,16 +259,32 @@
                 <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #9d174d; text-transform: uppercase;">Datos Generales del Evaluado</h3>
                 <table style="width: 100%; font-size: 14px; border-collapse: collapse;">
                     <tr>
-                        <td style="width: 30%; font-weight: bold; padding: 4px 0;">Nombre Completo:</td>
+                        <td style="width: 35%; font-weight: bold; padding: 4px 0;">Nombre Completo:</td>
                         <td id="pdf-nombre" style="color: #0f172a;"></td>
                     </tr>
                     <tr>
-                        <td style="font-weight: bold; padding: 4px 0;">Contacto:</td>
+                        <td style="font-weight: bold; padding: 4px 0;">Documento de Identidad:</td>
+                        <td id="pdf-documento" style="color: #0f172a;"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px 0;">Contacto Telefónico:</td>
                         <td id="pdf-telefono" style="color: #0f172a;"></td>
                     </tr>
                     <tr>
-                        <td style="font-weight: bold; padding: 4px 0;">Ubicación:</td>
+                        <td style="font-weight: bold; padding: 4px 0;">Correo Electrónico:</td>
+                        <td id="pdf-correo" style="color: #0f172a;"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px 0;">Fecha de Nacimiento:</td>
+                        <td id="pdf-fechaNac" style="color: #0f172a;"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px 0;">Residencia Actual:</td>
                         <td id="pdf-zona" style="color: #0f172a;"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 4px 0;">Nivel de Instrucción:</td>
+                        <td id="pdf-educacion" style="color: #0f172a; font-weight: bold;"></td>
                     </tr>
                 </table>
             </div>
@@ -275,7 +319,7 @@
                 <p id="pdf-aprendizaje" style="font-size: 14px; margin: 0; color: #334155; text-align: justify;"></p>
             </div>
 
-            <div style="margin-top: 50px; text-align: center; border-t: 1px solid #f1f5f9; padding-top: 15px; font-size: 11px; color: #94a3b8;">
+            <div style="margin-top: 50px; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 15px; font-size: 11px; color: #94a3b8;">
                 Documento generado de forma digital. Válido para la estructuración curricular y evaluación técnico-profesional.
             </div>
         </div>
