@@ -64,7 +64,7 @@ function updateFormView() {
 
 function isStepValid() {
     const activeSection = document.getElementById(`step-${currentStep}`);
-    const inputs = activeSection.querySelectorAll('input[required], textarea[required]');
+    const inputs = activeSection.querySelectorAll('input[required], textarea[required], select[required]');
     for (let input of inputs) {
         if (!input.value.trim()) return false;
     }
@@ -111,8 +111,12 @@ async function guardarYProcesar() {
 
     const payload = {
         nombre: document.getElementById('nombre').value,
+        documento: document.getElementById('documento').value,
         telefono: document.getElementById('telefono').value,
+        correo: document.getElementById('correo').value,
+        fechaNac: document.getElementById('fechaNac').value,
         zona: document.getElementById('zona').value,
+        educacion: document.getElementById('educacion').value,
         escenarioA: document.querySelector('input[name="escenarioA"]:checked')?.value || '',
         escenarioB: document.querySelector('input[name="escenarioB"]:checked')?.value || '',
         zonaConfort: document.querySelector('input[name="zonaConfort"]:checked')?.value || '',
@@ -129,8 +133,13 @@ async function guardarYProcesar() {
         
         // Carga de la información en la plantilla PDF oculta
         document.getElementById('pdf-nombre').textContent = payload.nombre;
+        document.getElementById('pdf-documento').textContent = payload.documento;
         document.getElementById('pdf-telefono').textContent = payload.telefono;
+        document.getElementById('pdf-correo').textContent = payload.correo;
+        document.getElementById('pdf-fechaNac').textContent = payload.fechaNac;
         document.getElementById('pdf-zona').textContent = payload.zona;
+        document.getElementById('pdf-educacion').textContent = payload.educacion;
+        
         document.getElementById('pdf-escenarioA').textContent = payload.escenarioA;
         document.getElementById('pdf-escenarioB').textContent = payload.escenarioB;
         document.getElementById('pdf-zonaConfort').textContent = payload.zonaConfort;
@@ -177,5 +186,6 @@ downloadPdfBtn.addEventListener('click', () => {
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    html2pdf().set(configuracionPdf).from(elementoPdf).save();
+    // Llamar a la librería html2pdf global instalada vía CDN
+    window.html2pdf().set(configuracionPdf).from(elementoPdf).save();
 });
